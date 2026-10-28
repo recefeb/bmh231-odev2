@@ -2,8 +2,9 @@
   "name": "bmh231-odev2",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "sunucu.js",
   "scripts": {
+    "start": "node sunucu.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
