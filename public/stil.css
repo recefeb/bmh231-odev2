@@ -90,3 +90,23 @@ footer{
   color: white;
   font-size: 0.85rem;
 }
+
+@media (max-width: 480px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .filtreler {
+    flex-direction: column;
+  }
+
+  label[for="arama"] {
+    display: block;
+  }
+
+  #arama {
+    width: 100%;
+  }
+}
