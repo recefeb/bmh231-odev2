@@ -12,7 +12,7 @@
         "baslik": "Git ve GitHub Atölyesi",
         "tur": "atolye",
         "tarih": "2026-11-14",
-        "yer":  "Mühendislik Fakültesi, Lab 1",
+        "yer": "Mühendislik Fakültesi, Lab 1",
         "kontenjan": 20
     },
     {
@@ -32,11 +32,11 @@
         "kontenjan": 150
     },
     {
-        "id":5,
+        "id": 5,
         "baslik": "Backend Geliştirici Olmak Söyleşisi",
         "tur": "soylesi",
         "tarih": "2026-11-26",
-        "yer":  "Mühendislik Fakültesi, Konferans Salonu",
+        "yer": "Mühendislik Fakültesi, Konferans Salonu",
         "kontenjan": 100
     },
     {
