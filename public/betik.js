@@ -46,4 +46,41 @@ function kartlariCiz(liste) {
   }
 }
 
-kartlariCiz(etkinlikler);
+let seciliTur = "hepsi";
+let aramaMetni = "";
+
+const filtreDugmeleri = document.querySelectorAll(".filtreler button");
+const aramaKutusu = document.getElementById("arama");
+const durum = document.getElementById("durum");
+
+function filtreleVeCiz() {
+  const sonuc = etkinlikler.filter(function (etkinlik) {
+    const turUyuyor = seciliTur === "hepsi" || etkinlik.tur === seciliTur;
+    const aramaUyuyor = etkinlik.baslik.toLowerCase().includes(aramaMetni.toLowerCase());
+    return turUyuyor && aramaUyuyor;
+  });
+
+  durum.textContent = sonuc.length === 0 ? "Aramanıza uygun etkinlik yok." : "";
+  kartlariCiz(sonuc);
+}
+
+filtreDugmeleri.forEach(function (dugme) {
+  dugme.addEventListener("click", function () {
+    seciliTur = dugme.dataset.tur;
+
+    filtreDugmeleri.forEach(function (d) {
+      d.classList.remove("secili");
+    });
+    dugme.classList.add("secili");
+
+    filtreleVeCiz();
+  });
+});
+
+aramaKutusu.addEventListener("input", function () {
+  aramaMetni=aramaKutusu.value;
+  filtreleVeCiz();
+});
+
+filtreleVeCiz();
+
