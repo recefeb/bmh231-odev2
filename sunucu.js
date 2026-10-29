@@ -27,6 +27,15 @@ function jsonGonder(yanit, durumKodu, veri) {
 const sunucu = http.createServer(function (istek, yanit) {
     console.log(istek.method + " " + istek.url);
 
+    if (istek.method !== "GET") {
+        yanit.writeHead(405, {
+            "Content-Type": "text/plain; charset=utf-8",
+            "Allow": "GET"
+        });
+        yanit.end("Bu yöntem desteklenmiyor");
+        return;
+    }
+
     const url = new URL(istek.url, "http://localhost:3000");
     let yol = url.pathname;
 
