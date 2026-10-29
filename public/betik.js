@@ -1,11 +1,4 @@
-const etkinlikler = [
-  { id: 1, baslik: "Web Programlama Atölyesi", tur: "atolye", tarih: "2026-11-12", yer: "Mühendislik Fakültesi, Lab 2", kontenjan: 30 },
-  { id: 2, baslik: "Git ve GitHub Atölyesi", tur: "atolye", tarih: "2026-11-14", yer: "Mühendislik Fakültesi, Lab 1", kontenjan: 20 },
-  { id: 3, baslik: "Oyun Geliştirme Topluluğu Tanışma Buluşması", tur: "topluluk", tarih: "2026-11-21", yer: "Mühendislik Fakültesi, Seminer Salonu", kontenjan: 50 },
-  { id: 4, baslik: "Oyun Sektöründe Kariyer Söyleşisi", tur: "soylesi", tarih: "2026-11-24", yer: "Mühendislik Fakültesi, Konferans Salonu", kontenjan: 150 },
-  { id: 5, baslik: "Backend Geliştirici Olmak Söyleşisi", tur: "soylesi", tarih: "2026-11-26", yer: "Mühendislik Fakültesi, Konferans Salonu", kontenjan: 100 },
-  { id: 6, baslik: "Mini Oyun Yarışması Hazırlık Toplantısı", tur: "topluluk", tarih: "2026-11-27", yer: "Mühendislik Fakültesi, Seminer Salonu", kontenjan: 75 }
-];
+let etkinlikler = [];
 
 const turAdlari = {
   atolye: "Atölye",
@@ -78,7 +71,7 @@ filtreDugmeleri.forEach(function (dugme) {
 });
 
 aramaKutusu.addEventListener("input", function () {
-  aramaMetni=aramaKutusu.value;
+  aramaMetni = aramaKutusu.value;
   filtreleVeCiz();
 });
 
@@ -124,5 +117,21 @@ oneriFormu.addEventListener("submit", function (olay) {
   }
 });
 
-filtreleVeCiz();
+async function etkinlikleriYukle() {
+  durum.classList.remove("hata");
+  durum.textContent = "Yükleniyor...";
+  try {
+    const yanit = await fetch("/api/etkinlikler");
+    if (!yanit.ok) {
+      throw new Error("Sunucu hatası: " + yanit.status);
+    }
+    etkinlikler = await yanit.json();
+    durum.textContent = "";
+    filtreleVeCiz();
+  } catch (hata) {
+    durum.textContent = "Etkinlikler yüklenemedi. Lütfen daha sonra tekrar deneyin.";
+    durum.classList.add("hata");
+  }
+}
 
+etkinlikleriYukle();
