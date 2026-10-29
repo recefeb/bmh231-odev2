@@ -82,5 +82,47 @@ aramaKutusu.addEventListener("input", function () {
   filtreleVeCiz();
 });
 
+const oneriFormu = document.getElementById("oneri-formu");
+const formMesaj = document.getElementById("form-mesaj");
+
+oneriFormu.addEventListener("submit", function (olay) {
+  olay.preventDefault();
+
+  const ad = document.getElementById("ad").value.trim();
+  const tarih = document.getElementById("tarih").value;
+  const eposta = document.getElementById("eposta").value.trim();
+
+  const hatalar = [];
+
+  if (ad.length < 5) {
+    hatalar.push("Etkinlik adı en az 5 karakter olmalı.");
+  }
+
+  if (tarih === "") {
+    hatalar.push("Tarih boş olamaz.");
+  } else {
+    const secilen = new Date(tarih + "T00:00:00");
+    const bugun = new Date();
+    bugun.setHours(0, 0, 0, 0);
+    if (secilen < bugun) {
+      hatalar.push("Tarih geçmiş bir gün olamaz.");
+    }
+  }
+
+  const epostaKalibi = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!epostaKalibi.test(eposta)) {
+    hatalar.push("Geçerli bir e-posta adresi girin.");
+  }
+
+  if (hatalar.length > 0) {
+    formMesaj.textContent = hatalar.join(" ");
+    formMesaj.className = "hata";
+  } else {
+    formMesaj.textContent = "Teşekkürler, öneriniz alındı.";
+    formMesaj.className = "basari";
+    oneriFormu.reset();
+  }
+});
+
 filtreleVeCiz();
 
